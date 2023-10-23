@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  taskmanager-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - taskmanager-db
+
+  taskmanager-db:
+    image: postgres:13
+    environment:
+      POSTGRES_DB: taskmanager
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:
